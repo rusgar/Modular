@@ -149,3 +149,12 @@ utils/validadores/
 - ✅ Menú principal unificado en `main.py`
 
 ```
+---
+```
+## Instalacion de PIP
+
+🔧 INSTALAR PYTEST (para ejecutar tests)
+```
+pip install pytest
+
+```
