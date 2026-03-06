@@ -1,46 +1,25 @@
-# ============================================================
-# main.py — TODO JUNTO (punto de partida)
-# ============================================================
-# Una app de tareas con: añadir, completar, eliminar y listar.
-# El problema: datos, lógica, validaciones y menú conviven.
-# Imagina que esto tuviera 500 líneas... imposible de mantener.
-# ============================================================
+# src/tareas_app.py
+import sys
+import os
 
-# ── DATOS ────────────────────────────────────────────────────
-# Lista que almacena las tareas en memoria
+# SOLUCIÓN MAGICA: Añadimos la ruta padre MANUALMENTE
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+# AHORA SÍ FUNCIONA
+from utils.validaciones_nuevo import validar_descripcion, validar_id
+
 tareas = []
-contador_id = 1  # cada tarea tendrá un ID único
+contador_id = 1
 
-
-# ── VALIDACIONES ─────────────────────────────────────────────
-def validar_descripcion(descripcion):
-    """La descripción no puede estar vacía ni ser muy corta."""
-    descripcion = descripcion.strip()
-    if len(descripcion) < 3:
-        return False, "La tarea debe tener al menos 3 caracteres."
-    return True, descripcion
-
-def validar_id(valor):
-    """El ID debe ser un número entero positivo."""
-    try:
-        id_ = int(valor)
-        if id_ <= 0:
-            raise ValueError
-        return True, id_
-    except ValueError:
-        return False, "El ID debe ser un número entero positivo."
-
-
-# ── LÓGICA ───────────────────────────────────────────────────
 def agregar_tarea(descripcion):
     global contador_id
     ok, resultado = validar_descripcion(descripcion)
     if not ok:
         return False, f"❌ {resultado}"
     tarea = {
-        "id":          contador_id,
+        "id": contador_id,
         "descripcion": resultado,
-        "completada":  False,
+        "completada": False,
     }
     tareas.append(tarea)
     contador_id += 1
@@ -53,7 +32,7 @@ def completar_tarea(id_str):
     for tarea in tareas:
         if tarea["id"] == resultado:
             if tarea["completada"]:
-                return False, "⚠️  La tarea ya estaba completada."
+                return False, "⚠️ La tarea ya estaba completada."
             tarea["completada"] = True
             return True, f"✅ Tarea #{resultado} marcada como completada."
     return False, f"❌ No existe ninguna tarea con ID {resultado}."
@@ -65,7 +44,7 @@ def eliminar_tarea(id_str):
     for i, tarea in enumerate(tareas):
         if tarea["id"] == resultado:
             tareas.pop(i)
-            return True, f"🗑️  Tarea #{resultado} eliminada."
+            return True, f"🗑️ Tarea #{resultado} eliminada."
     return False, f"❌ No existe ninguna tarea con ID {resultado}."
 
 def listar_tareas():
@@ -79,10 +58,7 @@ def listar_tareas():
         print(f"  {t['id']:<5} {estado:<12} {t['descripcion']}")
     print()
 
-
-# ── MENÚ / UI ────────────────────────────────────────────────
 def menu():
-    # Datos de prueba
     agregar_tarea("Comprar leche")
     agregar_tarea("Estudiar Python")
     agregar_tarea("Hacer ejercicio")
@@ -104,21 +80,21 @@ def menu():
             print("  👋 ¡Hasta luego!")
             break
         elif op == "1":
-            desc    = input("  Descripción: ")
-            _, msg  = agregar_tarea(desc)
+            desc = input("  Descripción: ")
+            _, msg = agregar_tarea(desc)
             print(f"  {msg}")
         elif op == "2":
-            id_str  = input("  ID de la tarea: ")
-            _, msg  = completar_tarea(id_str)
+            id_str = input("  ID de la tarea: ")
+            _, msg = completar_tarea(id_str)
             print(f"  {msg}")
         elif op == "3":
-            id_str  = input("  ID a eliminar: ")
-            _, msg  = eliminar_tarea(id_str)
+            id_str = input("  ID a eliminar: ")
+            _, msg = eliminar_tarea(id_str)
             print(f"  {msg}")
         elif op == "4":
             listar_tareas()
         else:
-            print("  ⚠️  Opción no válida.")
+            print("  ⚠️ Opción no válida.")
 
 if __name__ == "__main__":
     menu()
