@@ -3,6 +3,8 @@ import os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
 from utils.validaciones import validar_descripcion, validar_id
+from utils.validadores.tareas.validaciones_tareas import validar_descripcion
+from utils.validadores.comunes import validar_id
 
 tareas = []
 contador_id = 1
