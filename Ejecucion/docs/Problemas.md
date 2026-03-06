@@ -158,3 +158,24 @@ utils/validadores/
 pip install pytest
 
 ```
+---
+
+## 🚀 EJECUTAR LOS TESTS
+
+# Todos los tests
+```
+pytest tests/ -v
+```
+
+# Tests específicos
+
+```
+pytest tests/unit/test_validadores/test_comunes.py -v
+pytest tests/unit/test_services/test_tarea_service.py -v
+
+```
+# Con cobertura (si instalas pytest-cov)
+```
+pytest --cov=src tests/
+
+```
