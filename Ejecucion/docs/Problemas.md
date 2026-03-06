@@ -121,4 +121,31 @@ utils/validadores/
 └── biblioteca/
     └── validaciones_biblioteca.py  # Solo lo de BIBLIOTECA
     ```
+
+```
+---
+ ##  Fase 3: App de Biblioteca Modularizada
     
+
+**Archivos creados:**
+- `src/models/libro.py` → Modelo de datos
+- `utils/validadores/biblioteca/validaciones_biblioteca.py` → Validaciones específicas
+- `src/services/biblioteca_service.py` → Lógica de negocio
+- `src/biblioteca_app.py` → Solo menú
+
+**Validaciones reutilizadas:**
+- `validar_id` de `comunes.py` (para futuras búsquedas por ID)
+
+**Nuevas validaciones específicas:**
+- `validar_titulo()` → Mínimo 2 caracteres
+- `validar_autor()` → Mínimo 3 caracteres
+- `validar_precio()` → Número positivo
+- `validar_cantidad()` → Entero positivo
+
+**Logros:**
+- ✅ Misma estructura que app de tareas
+- ✅ Validaciones reutilizables
+- ✅ Responsabilidad única en cada archivo
+- ✅ Menú principal unificado en `main.py`
+
+```
