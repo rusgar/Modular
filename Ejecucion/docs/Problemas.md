@@ -164,7 +164,9 @@ pip install pytest
 
 # Todos los tests
 ```
-pytest tests/ -v
+pytest tests/ -v 
+o
+python -m pytest tests/ -v
 ```
 
 # Tests específicos
@@ -179,3 +181,17 @@ pytest tests/unit/test_services/test_tarea_service.py -v
 pytest --cov=src tests/
 
 ```
+
+## ERROR: ValueError - source code string cannot contain null bytes
+
+**Causa:** Archivos compilados (.pyc) corruptos en las carpetas __pycache__
+
+**Solución:**
+1. Cerrar VS Code
+2. Borrar TODAS las carpetas __pycache__ del proyecto
+3. Reabrir VS Code
+4. Ejecutar de nuevo
+
+**Comando rápido (PowerShell Admin):**
+```bash
+Get-ChildItem -Path . -Filter "__pycache__" -Recurse -Directory | Remove-Item -Recurse -Force
