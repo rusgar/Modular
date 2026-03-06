@@ -193,5 +193,18 @@ pytest --cov=src tests/
 4. Ejecutar de nuevo
 
 **Comando rápido (PowerShell Admin):**
-```bash
+```
 Get-ChildItem -Path . -Filter "__pycache__" -Recurse -Directory | Remove-Item -Recurse -Force
+```
+
+## Limpia también caché de Python
+
+```
+python -Bc "import sys; print(sys.dont_write_bytecode)"
+
+```
+
+Luego fuerza regeneración:
+```
+python -m compileall .
+```
