@@ -49,3 +49,76 @@ Cuando hacemos from services import..., Python busca services en la raíz, pero 
 
 Regla de oro:
 Siempre importa desde la raíz del proyecto: from src.services... o from utils...
+
+## Fase 2.5: Validadores Especializados (NIVEL PRO)
+
+**Archivos creados:**
+- `utils/validadores/comunes.py` → Validaciones genéricas
+- `utils/validadores/tareas/validaciones_tareas.py` → Validaciones específicas
+
+### Estructura final de validadores:
+
+```
+utils/
+└── validadores/
+    ├── __init__.py
+    ├── comunes.py            # validar_id, validar_email, etc.
+    └── tareas/
+        ├── __init__.py
+        └── validaciones_tareas.py   # validar_descripcion
+```
+
+
+### Código ejemplo:
+```python
+# comunes.py
+def validar_id(valor):
+    """Válido para TAREAS y BIBLIOTECA"""
+    ...
+
+# validaciones_tareas.py
+from utils.validadores.comunes import validar_id
+
+def validar_descripcion(descripcion):
+    """EXCLUSIVO de la app de tareas"""
+    ...
+
+```
+
+### ¿Qué logramos?
+
+✅ Separación total: Cada validación en su lugar
+
+✅ Reutilización: validar_id lo usa TODO
+
+✅ Escalabilidad: Podemos añadir biblioteca/ con sus propias validaciones
+
+✅ Mantenibilidad: Si cambia el formato de ID, solo tocamos comunes.py
+
+
+
+---
+
+## 📌 **También actualiza `docs/principios-solid.md`:**
+
+Añade este ejemplo en la sección de **SRP**:
+
+```python
+# Ejemplo de Responsabilidad Única en Validaciones
+
+## MAL (Todo junto)
+utils/validaciones.py
+├── def validar_id()        # Genérico
+├── def validar_descripcion() # Específico tareas
+├── def validar_titulo()     # Específico biblioteca
+└── def validar_autor()      # Específico biblioteca
+
+## BIEN (Separado por responsabilidad)
+utils/validadores/
+├── comunes.py               # Solo lo GENÉRICO
+├── tareas/
+│   └── validaciones_tareas.py  # Solo lo de TAREAS
+└── biblioteca/
+    └── validaciones_biblioteca.py  # Solo lo de BIBLIOTECA
+    ```
+    
