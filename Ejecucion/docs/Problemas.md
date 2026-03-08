@@ -208,3 +208,11 @@ Luego fuerza regeneración:
 ```
 python -m compileall .
 ```
+
+## Imporracion del requirements.txt
+
+Comando automatico:
+
+```
+findstr /s /i "import\|from" *.py
+```
